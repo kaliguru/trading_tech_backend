@@ -125,49 +125,51 @@ router.put('/:id',(req, res, next)=>{
 
 //login login
  router.post('/login',(req, res, next)=>{
-    User.find({phone:req.body.phone})
+    User.find({user:req.body.phone})
     .exec()
     .then(user=>{
-        if(user.length<1){
+        if(user.length <1 ){
             return res.status(404).json({
                 msg:'User Not Found'
+            })
+            bcrypt.compare(req.body.password, user[0].password,(err, result)=>{
+                if(!result)
+                {
+                    return res.status(400).json({
+                        msg:"Password didn't match"
+                    })
+                }
+                if(result)
+                {
+                    const token = jwt.sign({
+                           user:user[0].phone,
+                           userType:user[0].userType,
+                          
+
+                    },
+                    'This is dummy text',
+                    {
+                        expiresIn:"24h"
+                    }
+                    );
+                    res.status(200).json({
+                        phone:user[0].phone,
+                        userType:user[0].userType,
+                        token: token
+                    })
+                }
+                
 
             })
-        }
-        bcrypt.compare(req.body.password, user[0].phone, (err, result)=>{
 
-            if(!result)
-            {
-                res.status(400).json({
-                    msg:'Phone or Password Incorrect'
-                })
-            }
-            if(result)
-            {
-                const token = jwt.sign({
-                    phone:user[0].phone,
-                //  userType:user[0].userType,
-                 token: token
-                },
-                'this is your token',
-                {
-                    expiresIn:"24h"
-                }
-                );
-                res.status(200).json({
-                    phone:user[0].phone,
-                    userType:user[0].userType,
-                    token: token
-                })
-            }
-           }
-        )
-    }
-    ).catch(err=>{
-       res.status(400).json({
-        error:err
-       })
-    })
+        }
+
+    }).catch(err=>
+        {
+            res.status(500).json({
+                error:err
+            })
+        })
  })
 
 
@@ -224,3 +226,53 @@ router.post('/login',(req, res, next)=>{
 
 })
 */
+
+
+
+/*
+router.post('/login',(req, res, next)=>{
+    User.find({phone:req.body.phone})
+    .exec()
+    .then(user=>{
+        if(user.length<1){
+            return res.status(404).json({
+                msg:'User Not Found'
+
+            })
+        }
+        bcrypt.compare(req.body.password, user[0].phone, (err, result)=>{
+
+            if(!result)
+            {
+                res.status(400).json({
+                    msg:'Phone or Password Incorrect'
+                })
+            }
+            if(result)
+            {
+                const token = jwt.sign({
+                    phone:user[0].phone,
+                //  userType:user[0].userType,
+                 token: token
+                },
+                'this is your token',
+                {
+                    expiresIn:"24h"
+                }
+                );
+                res.status(200).json({
+                    phone:user[0].phone,
+                    userType:user[0].userType,
+                    token: token
+                })
+            }
+           }
+        )
+    }
+    ).catch(err=>{
+       res.status(400).json({
+        error:err
+       })
+    })
+ })
+ */
