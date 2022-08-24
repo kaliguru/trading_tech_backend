@@ -4,8 +4,27 @@ const mongoose = require('mongoose');
 const Order = require('../modules/orderModel');
 
 
+router.get('/',(req, res, next)=>{
+    res.status(200).json({
+        msg:'order is working'
+    })
+})
+router.get('/:id',(req, res, next)=>{
+    console.log(req.params.id);
+Order.findById(req.params.id)
+.then(result=>{
+    res.status(200).json({
+        order:result
+    });
+})
+    .catch(err=>{
+        res.status(500).json({
+            error:err
+        })
+    })
+})
 
-router.post('/',(req, res, next)=>{
+router.post('/new',(req, res, next)=>{
     const order = new Order({
         _id:new mongoose.Types.ObjectId,
         width: req.body.width,
@@ -14,7 +33,7 @@ router.post('/',(req, res, next)=>{
         heightin:req.body.heightin,
         shopName:req.body.shopName,
        })
-       user.save()
+       order.save()
        .then(result=>{
         console.log(result);
         res.status(200).json({
