@@ -4,9 +4,18 @@ const mongoose = require('mongoose');
 const Order = require('../modules/orderModel');
 
 
-router.get('/',(req, res, next)=>{
-    res.status(200).json({
-        msg:'order is working'
+router.get('/all',(req, res, next)=>{
+    Order.find()
+    .then(result=>{
+        res.status(200).json({
+        orderData:result
+        });
+    })
+    .catch(err=>{
+        console.log(err);
+        res.status(500).json({
+            error:err
+        })
     })
 })
 router.get('/:id',(req, res, next)=>{
@@ -46,6 +55,46 @@ router.post('/new',(req, res, next)=>{
         })
     })
     
+})
+
+//order delete
+router.delete('/:id',(req, res, next)=>{
+    Order.remove({_id:req.params.id})
+    .then(result=>{
+        console.log(result);
+        res.status(200).json({
+            result:result
+        })
+})
+.catch(err=>{
+    res.status(400).json({
+        error:err
+    })
+})
+
+
+})
+router.put('/:id',(req, res, next)=>{
+    console.log(req.params.id);
+    Order.findOneAndUpdate({_id:req.params.id },{
+        $set:{
+            width: req.body.width,
+            widthin:req.body.widthin,
+            height: req.body.height,
+            heightin:req.body.heightin,
+            shopName:req.body.shopName,
+
+        }
+    }).then(result=>{
+         res.status(200).json({
+            updated_order:result
+         })
+    }) 
+    .catch(err=>{
+       res.status(400).json({
+        error:err
+       })
+    })
 })
 
 
