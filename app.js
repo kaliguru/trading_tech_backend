@@ -26,7 +26,14 @@ app.use('/user',userRoute);
 app.use((req, res, next) =>{
     console.log('running');
     res.status(400).json({
-        Error: 'app is running'
+        Error: 'Something is wrong'
+    })
+
+})
+app.use((req, res, next) =>{
+    console.log('running');
+    res.status(200).json({
+        msg: 'app is running'
     })
 
 })
