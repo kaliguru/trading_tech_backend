@@ -42,6 +42,7 @@ router.post('/new',(req, res, next)=>{
         heightin:req.body.heightin,
         shopName: req.body.shopName,
         shopaddress:req.body.shopaddress,
+        shopLocation:req.body.shopLocation
        })
        order.save()
        .then(result=>{
@@ -85,6 +86,7 @@ router.put('/:id',(req, res, next)=>{
             heightin:req.body.heightin,
             shopName:req.body.shopName,
             shopaddress: req.body.shopaddress,
+            shopLocation:req.body.shopLocation
 
         }
     }).then(result=>{
