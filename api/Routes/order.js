@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Order = require('../modules/orderModel');
+const checkAuth = require('../middleware/check-auth');
 
 
-router.get('/all',(req, res, next)=>{
+router.get('/all',checkAuth,(req, res, next)=>{
     Order.find()
     .then(result=>{
         res.status(200).json({

@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const User = require('../modules/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const chechAuth = require('../middleware/check-auth');
 
 //user get
 router.get('/',(req, res, next)=>{
@@ -125,14 +126,19 @@ router.put('/:id',(req, res, next)=>{
 
 //login login
  router.post('/login',(req, res, next)=>{
-    User.find({user:req.body.phone})
+    console.log('request recieved')
+    User.find({phone:req.body.phone})
     .exec()
     .then(user=>{
-        if(user.length <1 ){
+        console.log('user data',user)
+        if(user.length === 0 ){
+
             return res.status(404).json({
                 msg:'User Not Found'
             })
+        }else{   
             bcrypt.compare(req.body.password, user[0].password,(err, result)=>{
+
                 if(!result)
                 {
                     return res.status(400).json({
@@ -144,10 +150,8 @@ router.put('/:id',(req, res, next)=>{
                     const token = jwt.sign({
                            user:user[0].phone,
                            userType:user[0].userType,
-                          
-
                     },
-                    'This is dummy text',
+                    'This is the key',
                     {
                         expiresIn:"24h"
                     }
@@ -162,8 +166,8 @@ router.put('/:id',(req, res, next)=>{
 
             })
 
-        }
-
+        
+        } 
     }).catch(err=>
         {
             res.status(500).json({
