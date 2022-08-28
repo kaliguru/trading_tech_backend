@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const chechAuth = require('../middleware/check-auth');
 
 //user get
-router.get('/',(req, res, next)=>{
+router.get('/',chechAuth,(req, res, next)=>{
     User.find()
     .then(result=>{
         res.status(200).json({

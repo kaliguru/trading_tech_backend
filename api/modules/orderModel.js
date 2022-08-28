@@ -9,7 +9,6 @@ const orderScheme = new mongoose.Schema({
     shopName: String,
     shopaddress:String,
     shopLocation:String
-
 })
 
 

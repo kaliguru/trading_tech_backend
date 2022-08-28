@@ -5,7 +5,7 @@ const Order = require('../modules/orderModel');
 const checkAuth = require('../middleware/check-auth');
 
 
-router.get('/all',checkAuth,(req, res, next)=>{
+router.get('/all',(req, res, next)=>{
     Order.find()
     .then(result=>{
         res.status(200).json({
@@ -19,7 +19,7 @@ router.get('/all',checkAuth,(req, res, next)=>{
         })
     })
 })
-router.get('/:id',checkAuth,(req, res, next)=>{
+router.get('/:id',(req, res, next)=>{
     console.log(req.params.id);
 Order.findById(req.params.id)
 .then(result=>{
@@ -34,7 +34,7 @@ Order.findById(req.params.id)
     })
 })
 
-router.post('/new',checkAuth,(req, res, next)=>{
+router.post('/new',(req, res, next)=>{
     const order = new Order({
         _id:new mongoose.Types.ObjectId,
         width: req.body.width,
@@ -61,7 +61,7 @@ router.post('/new',checkAuth,(req, res, next)=>{
 })
 
 //order delete
-router.delete('/:id',checkAuth,(req, res, next)=>{
+router.delete('/:id',(req, res, next)=>{
     Order.remove({_id:req.params.id})
     .then(result=>{
         console.log(result);
@@ -77,7 +77,7 @@ router.delete('/:id',checkAuth,(req, res, next)=>{
 
 
 })
-router.put('/:id',checkAuth,(req, res, next)=>{
+router.put('/:id',(req, res, next)=>{
     console.log(req.params.id);
     Order.findOneAndUpdate({_id:req.params.id },{
         $set:{
