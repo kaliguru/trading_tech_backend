@@ -5,7 +5,7 @@ const Order = require('../modules/orderModel');
 const checkAuth = require('../middleware/check-auth');
 
 
-router.get('/all',(req, res, next)=>{
+router.get('/all',checkAuth,(req, res, next)=>{
     Order.find()
     .then(result=>{
         res.status(200).json({
@@ -19,6 +19,8 @@ router.get('/all',(req, res, next)=>{
         })
     })
 })
+
+
 router.get('/:id',(req, res, next)=>{
     console.log(req.params.id);
 Order.findById(req.params.id)
@@ -43,7 +45,7 @@ router.post('/new',(req, res, next)=>{
         heightin:req.body.heightin,
         shopName: req.body.shopName,
         shopaddress:req.body.shopaddress,
-        shopLocation:req.body.shopLocation
+        shopLocation:req.body.shopLocation,
        })
        order.save()
        .then(result=>{
@@ -87,7 +89,7 @@ router.put('/:id',(req, res, next)=>{
             heightin:req.body.heightin,
             shopName:req.body.shopName,
             shopaddress: req.body.shopaddress,
-            shopLocation:req.body.shopLocation
+            shopLocation:req.body.shopLocation,
 
         }
     }).then(result=>{
