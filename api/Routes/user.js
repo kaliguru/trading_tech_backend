@@ -42,7 +42,6 @@ User.findById(req.params.id)
 
 //user signup
 router.post('/signup',(req, res, next)=>{
-    console.log("hitted")
 
     bcrypt.hash(req.body.password,12,(err,hash)=>{
         if(err){
