@@ -127,7 +127,7 @@ router.put('/:id',(req, res, next)=>{
 //login login
  router.post('/login',(req, res, next)=>{
     console.log('request recieved')
-    User.find({phone:req.body.phone})
+    User.find({email:req.body.email})
     .exec()
     .then(user=>{
         console.log('user data',user)
@@ -157,7 +157,7 @@ router.put('/:id',(req, res, next)=>{
                     }
                     );
                     res.status(200).json({
-                        phone:user[0].phone,
+                        email:user[0].email,
                         userType:user[0].userType,
                         token: token
                     })
