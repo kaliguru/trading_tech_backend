@@ -53,7 +53,7 @@ router.post('/signup',(req, res, next)=>{
         {
             const user = new User({
                 _id:new mongoose.Types.ObjectId,
-                phone: req.body.phone,
+                email: req.body.email,
                 password: hash,
                 userType:req.body.userType
                })
@@ -107,7 +107,7 @@ router.put('/:id',(req, res, next)=>{
     console.log(req.params.id);
     User.findOneAndUpdate({_id:req.params.id },{
         $set:{
-            phone: req.body.phone,
+            email: req.body.email,
             password: req.body.password,
             userType:req.body.userType
 
