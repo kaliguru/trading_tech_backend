@@ -148,7 +148,7 @@ router.put('/:id',(req, res, next)=>{
                 if(result)
                 {
                     const token = jwt.sign({
-                           user:user[0].phone,
+                           user:user[0].email,
                            userType:user[0].userType,
                     },
                     'This is the key',

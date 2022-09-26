@@ -4,9 +4,11 @@ const express = require('express');
 const router = express.Router();
 const wb = xlsx.readFile('uploads/JUSTWIN.xls')
 const ws = wb.Sheets['PRODUCTS']
+const chechAuth = require('../middleware/check-auth');
 
 
-router.get('/',(req,res,next)=>
+
+router.get('/',chechAuth,(req,res,next)=>
 {
     console.log(wb.SheetNames)
     console.log(ws)
