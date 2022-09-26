@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const userRoute = require('./api/Routes/user');
 const orderRoute = require('./api/Routes/order');
 const uploadRoute = require('./api/Routes/upload');
+const xlstojson = require('./api/Routes/exceltojson');
 
 
 
@@ -25,6 +26,8 @@ app.use(bodyParser.json());
 app.use('/order',orderRoute);
 app.use('/user',userRoute);
 app.use('/upload',uploadRoute);
+app.use('/filejson',xlstojson)
+
 
 app.use((req, res, next) =>{
     console.log('running');
