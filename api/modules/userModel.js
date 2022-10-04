@@ -8,7 +8,9 @@ const userScheme = new mongoose.Schema({
 
 
 
-})
+},
+{timestamps: true}
+)
 // const productScheme = new mongoose.Schema({
 //     _id : mongoose.Schema.Types.ObjectId,
 //     productName:String,

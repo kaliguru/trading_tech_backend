@@ -36,16 +36,44 @@ Order.findById(req.params.id)
     })
 })
 
-router.post('/new',(req, res, next)=>{
+router.post('/citytoairport',(req, res, next)=>{
     const order = new Order({
         _id:new mongoose.Types.ObjectId,
-        width: req.body.width,
-        widthin:req.body.widthin,
-        height: req.body.height,
-        heightin:req.body.heightin,
-        shopName: req.body.shopName,
-        shopaddress:req.body.shopaddress,
-        shopLocation:req.body.shopLocation,
+        customerName: req.body.customerName,
+        mobile: req.body.mobile,
+        email: req.body.email,
+        pickupAddress: req.body.pickupAddress,
+        dropoffAddress: req.body.dropoffAddress,
+        pickupDate: req.body.pickupDate,
+        pickupTime: req.body.pickupTime,
+        carType: req.body.carType
+       })
+       order.save()
+       .then(result=>{
+        console.log(result);
+        res.status(200).json({
+            newOrder:result
+        })
+       })//Saving Order Data
+       .catch(err=>{
+        res.status(500).json({
+            error:err
+        })
+    })
+    
+})
+
+router.post('/airporttocity',(req, res, next)=>{
+    const order = new Order({
+        _id:new mongoose.Types.ObjectId,
+        customerName: req.body.customerName,
+        mobile: req.body.mobile,
+        email: req.body.email,
+        pickupAddress: req.body.pickupAddress,
+        dropoffAddress: req.body.dropoffAddress,
+        pickupDate: req.body.pickupDate,
+        pickupTime: req.body.pickupTime,
+        carType: req.body.carType
        })
        order.save()
        .then(result=>{
@@ -83,13 +111,14 @@ router.put('/:id',(req, res, next)=>{
     console.log(req.params.id);
     Order.findOneAndUpdate({_id:req.params.id },{
         $set:{
-            width: req.body.width,
-            widthin:req.body.widthin,
-            height: req.body.height,
-            heightin:req.body.heightin,
-            shopName:req.body.shopName,
-            shopaddress: req.body.shopaddress,
-            shopLocation:req.body.shopLocation,
+            customerName: req.body.customerName,
+            mobile: req.body.mobile,
+            email: req.body.email,
+            pickupAddress: req.body.pickupAddress,
+            dropoffAddress: req.body.dropoffAddress,
+            pickupDate: req.body.pickupDate,
+            pickupTime: req.body.pickupTime,
+            carType: req.body.carType
 
         }
     }).then(result=>{

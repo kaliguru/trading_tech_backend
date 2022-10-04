@@ -9,21 +9,21 @@ const xlstojson = require('./api/Routes/exceltojson');
 
 
 
-mongoose.connect('mongodb+srv://root:root@cluster0.9zfghm1.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://root:root@cluster0.yrdezl7.mongodb.net/?retryWrites=true&w=majority');
 
 mongoose.connection.on('error',err=>{
     console.log('Not connected with database')
 })
 
 mongoose.connection.on('connected',connected=>{
-    console.log('Connection to art_board Database done')
+    console.log('Connection to Mantri Cabs Database done')
 })
 app.use(bodyParser.urlencoded({
     extended: false
 }))
 app.use(bodyParser.json());
 
-app.use('/order',orderRoute);
+app.use('/book',orderRoute);
 app.use('/user',userRoute);
 app.use('/upload',uploadRoute);
 app.use('/filejson',xlstojson)
